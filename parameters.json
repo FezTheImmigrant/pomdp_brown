@@ -1,0 +1,13 @@
+{
+  "Rows": 4,
+  "Columns": 3,
+  "Reward": 0,
+  "Lambda": 0,
+  "Walls": [
+    [0,0]
+  ],
+  "WinState": [2,2],
+  "LoseState": [1,2],
+  "WinStateReward": 1,
+  "LoseStateReward": -1
+}

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    pomdp:
+        image: pomdp/latest
+        build: /home/sorozco0612/dev/pomdp_brown
+        environment:
+            - DISPLAY=${DISPLAY}
+        stdin_open: true #docker run -i
+        tty: true # docker run -t
+        volumes:
+            - /home/sorozco0612/dev/pomdp_brown:/home/developer/dev
+            - /home/sorozco0612/.Xauthority:/root/.Xauthority:rw
+        network_mode: host
+        
