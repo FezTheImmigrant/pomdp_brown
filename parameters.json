@@ -6,8 +6,9 @@
   "Walls": [
     [0,0]
   ],
-  "WinState": [2,2],
-  "LoseState": [1,2],
-  "WinStateReward": 1,
-  "LoseStateReward": -1
+  "EndStates":[ 
+    [2,2,1],
+    [1,1,1],
+    [1,2,-1]
+  ]
 }
