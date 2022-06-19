@@ -20,11 +20,13 @@ WORKDIR "/home/$DOCKER_USER"
 
 # need curl to automatically install vim-plug
 # need clang-format for formatting c# files
+# need black for formatting python files
 RUN sudo apt-get update && \
     sudo apt-get install -y neovim && \
     sudo apt-get install -y git && \
     sudo apt-get install -y curl && \
     sudo apt-get install -y clang-format && \
+    sudo apt-get install -y black && \
     sudo apt-get install -y python3-pip && \
     sudo apt-get install -y python2.7
     
