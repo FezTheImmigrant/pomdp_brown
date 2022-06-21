@@ -11,45 +11,57 @@ class GridComponent:
     Iteration = 0
 
     def __init__(self, file_name):
-        self.Parameters = ParametersComponent()
+        self.parameters = ParametersComponent()
 
-        if not self.Parameters.load_parameters(file_name):
+        if not self.parameters.load_parameters(file_name):
             exit(-1)
 
-        if not self.initializeGridWorld():
+        if not self.__initialize_grid():
             exit(-1)
 
-    def initializeGridWorld(self):
-        self.Utility = [
-            [0 for c in range(self.Parameters.Col)] for r in range(self.Parameters.Row)
+    def __initialize_grid(self):
+        """Creates a utility and policy grid. Returns True if walls and end_states are valid parameters"""
+
+        self.utility = [
+            [0 for c in range(self.parameters.col)] for r in range(self.parameters.row)
         ]
-        self.Policy = [
-            ["<" for c in range(self.Parameters.Col)]
-            for r in range(self.Parameters.Row)
+        self.policy = [
+            ["<" for c in range(self.parameters.col)]
+            for r in range(self.parameters.row)
         ]
 
-        for wall in self.Parameters.Walls:
-            if wall[0] < self.Parameters.Row and wall[1] < self.Parameters.Col:
-                self.Utility[wall[0]][wall[1]] = "X"
-                self.Policy[wall[0]][wall[1]] = "X"
+        return self.__initialize_walls() and self.__initialize_end_states()
+
+    def __initialize_walls(self):
+        """Initializes walls on utility and policy grid. Returns True if walls are in range of the grid world"""
+
+        for wall in self.parameters.walls:
+            if wall[0] < self.parameters.row and wall[1] < self.parameters.col:
+                self.utility[wall[0]][wall[1]] = "X"
+                self.policy[wall[0]][wall[1]] = "X"
             else:
                 print("Given wall is out of range of grid world", wall)
                 return False
 
-        for end_state in self.Parameters.EndStates:
+        return True
+
+    def __initialize_end_states(self):
+        """Initializes end states on utility and policy grid. Returns True if end states are in range of the grid world and not also a wall."""
+
+        for end_state in self.parameters.end_states:
             if (
-                end_state[0] < self.Parameters.Row
-                and end_state[1] < self.Parameters.Col
+                end_state[0] < self.parameters.row
+                and end_state[1] < self.parameters.col
             ):
-                if self.Utility[end_state[0]][end_state[1]] == "X":
+                if self.utility[end_state[0]][end_state[1]] == "X":
                     print(
                         "Given end state cannot be placed where wall currently is.",
                         end_state,
                     )
                     return False
 
-                self.Utility[end_state[0]][end_state[1]] = "[" + str(end_state[2]) + "]"
-                self.Policy[end_state[0]][end_state[1]] = "E"
+                self.utility[end_state[0]][end_state[1]] = "[" + str(end_state[2]) + "]"
+                self.policy[end_state[0]][end_state[1]] = "E"
             else:
                 print("Given end state is out of range of grid world", end_state)
                 return False
