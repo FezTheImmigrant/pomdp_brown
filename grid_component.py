@@ -8,7 +8,7 @@ np.set_printoptions(threshold=sys.maxsize)  # display entire array
 
 
 class GridComponent:
-    Iteration = 0
+    iteration = 0
 
     def __init__(self, file_name):
         self.parameters = ParametersComponent()

@@ -14,7 +14,7 @@ class MenuComponent:
             Parameters:
 
             Returns:
-                inp: (Integer): Integer of user input from main menu selection 
+                inp: (Integer): Integer of user input from main menu selection
         """
         print()
         print()
@@ -42,16 +42,26 @@ class MenuComponent:
         table = tabulate(self.grid.policy, tablefmt="fancy_grid")
         print(table)
         print()
-        print("Current Iteration: ", self.grid.Iteration)
+        print("Current Iteration: ", self.grid.iteration)
         print()
         print("----------MAIN MENU----------")
         print()
         print("Select one of the following options:")
         print()
-        print("1. Calculate grid world utility.")
-        print("2. Reset grid world utility.")
-        print("3. Display grid world policy.")
-        print("4. Quit.")
+        print("1. Compute Optimal MDP policy.")
+        print("2. Reset grid world.")
+        print("3. Quit.")
+        print()
+        print("> ", end="")
+
+        inp = input()
+
+        return inp
+
+    def display_calculate_sub_emnu(self):
+        print()
+        print()
+        print("For how many iterations?")
         print()
         print("> ", end="")
 

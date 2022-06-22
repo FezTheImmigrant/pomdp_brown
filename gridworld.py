@@ -1,5 +1,6 @@
 from menu_component import MenuComponent
 from grid_component import GridComponent
+from utils import Utils
 import time
 
 
@@ -36,22 +37,25 @@ class GridWorld:
         Processes input from user. Returns False if the user selects 'Quit'
 
             Parameters:
-                inp: (integer): Integer of user input from main menu selection
+                inp: (integer): User input from main menu selection
 
             Returns:
                 is_quitting: (bool): Boolean of whether or not to quit the grid world.
 
-
         """
-        """Processes input from user. Returns False if the user selects 'Quit'"""
 
+        # Compute omptimal grid world policy
         if inp == "1":
+            iterations = self.menu.display_calculate_sub_emnu()
+            self.__compute_optimal_mdp(iterations)
             return True
+
+        # Reset grid world
         elif inp == "2":
             return True
+
+        # Quit 
         elif inp == "3":
-            return True
-        elif inp == "4":
             print()
             print()
             print("Quitting.")
@@ -65,6 +69,20 @@ class GridWorld:
             print()
             print()
             return True
+
+    def __compute_optimal_mdp(self,iterations):
+        """
+        Computes optimal Markov Decision Process policy using value iteration. Updates policy and utility graph.
+
+            Parameters:
+                iterations: (integer): Number of iterations to run value iteration for
+
+            Returns:
+
+        """
+
+        if Utils.is_positive_int(iterations):
+            self.grid.iteration += int(iterations)
 
 
 if __name__ == "__main__":

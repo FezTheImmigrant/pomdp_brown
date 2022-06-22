@@ -1,3 +1,4 @@
+from utils import Utils
 import json
 
 
@@ -52,7 +53,7 @@ class ParametersComponent:
                 is_valid: (bool): Boolean of whether or not row parameter is valid.
         """
 
-        if self.__is_positive_int(data["Rows"]):
+        if Utils.is_positive_int(data["Rows"]):
             self.row = int(data["Rows"])
         else:
             print("Row parameter must be a postive integer value.")
@@ -72,7 +73,7 @@ class ParametersComponent:
                 is_valid: (bool): Boolean of whether or not column parameter is valid.
         """
 
-        if self.__is_positive_int(data["Columns"]):
+        if Utils.is_positive_int(data["Columns"]):
             self.col = int(data["Columns"])
         else:
             print("Column parameter must be a positive integer value.")
@@ -92,7 +93,7 @@ class ParametersComponent:
                 is_valid: (bool): Boolean of whether or not reward parameter is valid.
         """
 
-        if self.__is_float(data["Reward"]):
+        if Utils.is_float(data["Reward"]):
             self.reward = float(data["Reward"])
         else:
             print("Reward parameter must be a float value.")
@@ -112,7 +113,7 @@ class ParametersComponent:
                 is_valid: (bool): Boolean of whether or not lambda parameter is valid.
         """
 
-        if self.__is_float(data["Lambda"]):
+        if Utils.is_float(data["Lambda"]):
             self.lamb = float(data["Lambda"])
         else:
             print("Lambda parameter must be a float value.")
@@ -138,7 +139,7 @@ class ParametersComponent:
                 print("A wall takes only two parameters: (row,column)")
                 return False
 
-            if not self.__is_positive_int(wall[0]) or not self.__is_positive_int(
+            if not Utils.is_positive_int(wall[0]) or not Utils.is_positive_int(
                 wall[1]
             ):
                 print("A wall takes only positive integer parameters")
@@ -166,58 +167,16 @@ class ParametersComponent:
                 print("An end state takes only three parameters: (row,column,utility)")
                 return False
 
-            if not self.__is_positive_int(end_state[0]) or not self.__is_positive_int(
+            if not Utils.is_positive_int(end_state[0]) or not Utils.is_positive_int(
                 end_state[1]
             ):
                 print(
                     "The first two parameters for an end state must be positive integer parameters"
                 )
                 return False
-            if not self.__is_float(end_state[2]):
+            if not Utils.is_float(end_state[2]):
                 print("The third parameter for an end state must be a float.")
 
             self.end_states.append(end_state)
 
         return True
-
-    def __is_positive_int(self, inp):
-        """
-        Returns True if 'inp' parameter is a positive integer
-
-            Parameters:
-
-                inp: (object): python object
-
-            Returns:
-                is_valid: (bool): Boolean of whether or not 'inp' is valid.
-        """
-
-        is_positive_int = False
-        try:
-            int(inp)
-            is_positive_int = int(inp) >= 0
-        except ValueError:
-            is_positive_int = False
-
-        return is_positive_int
-
-    def __is_float(self, inp):
-        """
-        Returns True if 'inp' parameter is a float
-
-            Parameters:
-
-                inp: (object): python object
-
-            Returns:
-                is_valid: (bool): Boolean of whether or not 'inp' is valid.
-        """
-
-        is_float = False
-        try:
-            float(inp)
-            is_float = True
-        except ValueError:
-            is_float = False
-
-        return is_float
