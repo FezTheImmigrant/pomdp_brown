@@ -13,6 +13,14 @@ class GridWorld:
         self.menu = MenuComponent(self.grid)
 
     def start_grid_world(self):
+        """
+        Starts the grid world main menu selection and processes the user input.
+
+            Parameters:
+
+            Returns:
+
+        """
 
         while True:
 
@@ -24,6 +32,17 @@ class GridWorld:
             time.sleep(1)
 
     def __process_main_menu_input(self, inp):
+        """
+        Processes input from user. Returns False if the user selects 'Quit'
+
+            Parameters:
+                inp: (integer): Integer of user input from main menu selection
+
+            Returns:
+                is_quitting: (bool): Boolean of whether or not to quit the grid world.
+
+
+        """
         """Processes input from user. Returns False if the user selects 'Quit'"""
 
         if inp == "1":

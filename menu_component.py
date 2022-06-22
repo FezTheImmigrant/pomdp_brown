@@ -8,7 +8,14 @@ class MenuComponent:
         self.grid = grid
 
     def display_main_menu_selection(self):
-        """Displays main menu for grid world and returns user input from main menu selection"""
+        """
+        Displays main menu for grid world. Returns user input from main menu selection.
+
+            Parameters:
+
+            Returns:
+                inp: (Integer): Integer of user input from main menu selection 
+        """
         print()
         print()
         print("----------MARKOV DECISION PROBLEM ON GRID WORLD----------")

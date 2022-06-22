@@ -61,7 +61,16 @@ class ParametersComponent:
         return True
 
     def __load_column(self, data):
-        """loads column parameter from 'parameters.json. Returns False if column is not a postive integer'"""
+        """
+        Returns True if column parameter from 'parameters.json' is a positive integer.
+
+            Parameters:
+
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not column parameter is valid.
+        """
 
         if self.__is_positive_int(data["Columns"]):
             self.col = int(data["Columns"])
@@ -72,7 +81,16 @@ class ParametersComponent:
         return True
 
     def __load_reward(self, data):
-        """loads reward parameter from 'parameters.json. Returns False if reward is not a float'"""
+        """
+        Returns True if reward parameter from 'parameters.json' is a float.
+
+            Parameters:
+
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not reward parameter is valid.
+        """
 
         if self.__is_float(data["Reward"]):
             self.reward = float(data["Reward"])
@@ -83,7 +101,16 @@ class ParametersComponent:
         return True
 
     def __load_lambda(self, data):
-        """loads lambda parameter from 'parameters.json. Returns False if lambda is not a float'"""
+        """
+        Returns True if lambda parameter from 'parameters.json' is a float.
+
+            Parameters:
+
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not lambda parameter is valid.
+        """
 
         if self.__is_float(data["Lambda"]):
             self.lamb = float(data["Lambda"])
@@ -94,7 +121,16 @@ class ParametersComponent:
         return True
 
     def __load_walls(self, data):
-        """loads wall parameters from 'parameters.json. Returns False if a wall is not in form [row,column]'"""
+        """
+        Returns True if wall parameters from 'parameters.json' are positive integers in the form [row,column]
+
+            Parameters:
+
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not wall parametes are valid.
+        """
 
         for wall in data["Walls"]:
 
@@ -113,7 +149,16 @@ class ParametersComponent:
         return True
 
     def __load_end_states(self, data):
-        """loads end state parameters from 'parameters.json. Returns False if a wall is not in form [row,column,reward]'"""
+        """
+        Returns True if end state parameters from 'parameters.json' are in the form [row,column,reward]
+
+            Parameters:
+
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not end state parametes are valid.
+        """
 
         for end_state in data["EndStates"]:
 
@@ -136,7 +181,17 @@ class ParametersComponent:
         return True
 
     def __is_positive_int(self, inp):
-        """returns True if 'inp' is a positive integer"""
+        """
+        Returns True if 'inp' parameter is a positive integer
+
+            Parameters:
+
+                inp: (object): python object
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not 'inp' is valid.
+        """
+
         is_positive_int = False
         try:
             int(inp)
@@ -147,7 +202,17 @@ class ParametersComponent:
         return is_positive_int
 
     def __is_float(self, inp):
-        """returns True if 'inp' is a float"""
+        """
+        Returns True if 'inp' parameter is a float
+
+            Parameters:
+
+                inp: (object): python object
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not 'inp' is valid.
+        """
+
         is_float = False
         try:
             float(inp)

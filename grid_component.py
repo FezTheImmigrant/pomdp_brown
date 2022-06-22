@@ -20,7 +20,14 @@ class GridComponent:
             exit(-1)
 
     def __initialize_grid(self):
-        """Creates a utility and policy grid. Returns True if walls and end_states are valid parameters"""
+        """
+        Create a utility and policy grid. Returns True if walls and end_states are valid parameters.
+
+            Parameters:
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not parameters are valid.
+        """
 
         self.utility = [
             [0 for c in range(self.parameters.col)] for r in range(self.parameters.row)
@@ -33,7 +40,15 @@ class GridComponent:
         return self.__initialize_walls() and self.__initialize_end_states()
 
     def __initialize_walls(self):
-        """Initializes walls on utility and policy grid. Returns True if walls are in range of the grid world"""
+        """
+        Initializes walls on utility and policy grid.
+        Returns True if walls are in range of the grid world  row and column parameters.
+
+            Parameters:
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not walls are within the grid world parameters
+        """
 
         for wall in self.parameters.walls:
             if wall[0] < self.parameters.row and wall[1] < self.parameters.col:
@@ -46,7 +61,15 @@ class GridComponent:
         return True
 
     def __initialize_end_states(self):
-        """Initializes end states on utility and policy grid. Returns True if end states are in range of the grid world and not also a wall."""
+        """
+        Initializes end states on utility and policy grid. 
+        Returns True if end_states are in range of the grid world row and column parameters, and if there is not already a wall placed.
+
+            Parameters:
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not end states are within the grid world parameters
+        """
 
         for end_state in self.parameters.end_states:
             if (
