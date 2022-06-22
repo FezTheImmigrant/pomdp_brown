@@ -62,7 +62,7 @@ class GridComponent:
 
     def __initialize_end_states(self):
         """
-        Initializes end states on utility and policy grid. 
+        Initializes end states on utility and policy grid.
         Returns True if end_states are in range of the grid world row and column parameters, and if there is not already a wall placed.
 
             Parameters:

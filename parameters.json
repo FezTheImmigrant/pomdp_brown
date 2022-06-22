@@ -3,6 +3,14 @@
   "Columns": 3,
   "Reward": 0,
   "Lambda": 0,
+
+  "probabilities": {
+    "cw_0": 0.8,
+    "cw_90": 0.1,
+    "cw_180": 0,
+    "cw_270": 0.1
+  },
+
   "Walls": [
     [0,0]
   ],

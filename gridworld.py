@@ -54,7 +54,7 @@ class GridWorld:
         elif inp == "2":
             return True
 
-        # Quit 
+        # Quit
         elif inp == "3":
             print()
             print()
@@ -70,7 +70,7 @@ class GridWorld:
             print()
             return True
 
-    def __compute_optimal_mdp(self,iterations):
+    def __compute_optimal_mdp(self, iterations):
         """
         Computes optimal Markov Decision Process policy using value iteration. Updates policy and utility graph.
 

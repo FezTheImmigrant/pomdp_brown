@@ -9,6 +9,10 @@ class ParametersComponent:
     col = 0
     reward = 0
     lamb = 0
+    cw_0 = 0
+    cw_90 = 0
+    cw_180 = 0
+    cw_270 = 0
 
     def load_parameters(self, file_name):
         """
@@ -33,6 +37,8 @@ class ParametersComponent:
         if not self.__load_reward(data):
             return False
         if not self.__load_lambda(data):
+            return False
+        if not self.__load_probabilities(data):
             return False
         if not self.__load_walls(data):
             return False
@@ -121,6 +127,49 @@ class ParametersComponent:
 
         return True
 
+    def __load_probabilities(self, data):
+        """
+        Returns True if probability parameters from 'parameters.json' are floats and sum up to 1.
+
+            Parameters:
+                data: (dict): dictionary containing parameter data for grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not probability parameters are valid.
+        """
+
+        if Utils.is_float(data["probabilities"]["cw_0"]):
+            self.cw_0 = float(data["probabilities"]["cw_0"])
+        else:
+            print("cw_0 must be a float.")
+            return False
+
+        if Utils.is_float(data["probabilities"]["cw_90"]):
+            self.cw_90 = float(data["probabilities"]["cw_90"])
+        else:
+            print("cw_90 must be a float.")
+            return False
+
+        if Utils.is_float(data["probabilities"]["cw_180"]):
+            self.cw_180 = float(data["probabilities"]["cw_180"])
+        else:
+            print("cw_180 must be a float.")
+            return False
+
+        if Utils.is_float(data["probabilities"]["cw_270"]):
+            self.cw_270 = float(data["probabilities"]["cw_270"])
+        else:
+            print("cw_270 must be a float.")
+            return False
+
+        sum = self.cw_0 + self.cw_90 + self.cw_180 + self.cw_270
+
+        if not sum == 1:
+            print("Probabilities must sum up to 1.0")
+            return False
+
+        return True
+
     def __load_walls(self, data):
         """
         Returns True if wall parameters from 'parameters.json' are positive integers in the form [row,column]
@@ -139,9 +188,7 @@ class ParametersComponent:
                 print("A wall takes only two parameters: (row,column)")
                 return False
 
-            if not Utils.is_positive_int(wall[0]) or not Utils.is_positive_int(
-                wall[1]
-            ):
+            if not Utils.is_positive_int(wall[0]) or not Utils.is_positive_int(wall[1]):
                 print("A wall takes only positive integer parameters")
                 return False
 
