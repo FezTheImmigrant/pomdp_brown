@@ -53,9 +53,6 @@ class GridComponent:
             and not [row, col] in self.parameters.end_states
         ):
 
-            s = [row, col]
-            a = action
-
             up_prob = 0
             right_prob = 0
             down_prob = 0
