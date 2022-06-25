@@ -5,6 +5,7 @@ import json
 class ParametersComponent:
     walls = []
     end_states = []
+    end_state_rewards = []
     row = 0
     col = 0
     reward = 0
@@ -208,22 +209,31 @@ class ParametersComponent:
                 is_valid: (bool): Boolean of whether or not end state parametes are valid.
         """
 
+        if not len(data["EndStates"]) == len(data["EndStateRewards"]):
+            print("EndStates and EndStateRewards must be the same size")
+            return False
+
         for end_state in data["EndStates"]:
 
-            if not len(end_state) == 3:
-                print("An end state takes only three parameters: (row,column,utility)")
+            if not len(end_state) == 2:
+                print("An end state takes only two parameters: (row,column)")
                 return False
 
             if not Utils.is_positive_int(end_state[0]) or not Utils.is_positive_int(
                 end_state[1]
             ):
                 print(
-                    "The first two parameters for an end state must be positive integer parameters"
+                    "The parameters for an end state must be positive integer parameters"
                 )
                 return False
-            if not Utils.is_float(end_state[2]):
-                print("The third parameter for an end state must be a float.")
 
             self.end_states.append(end_state)
+
+        for end_state_reward in data["EndStateRewards"]:
+            if not Utils.is_float(end_state_reward):
+                print("The third parameter for an end state must be a float.")
+
+            self.end_state_rewards.append(end_state_reward)
+
 
         return True

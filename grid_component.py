@@ -19,6 +19,9 @@ class GridComponent:
         if not self.__initialize_grid():
             exit(-1)
 
+    def reset_grid(self):
+        self.__initialize_grid()
+
     def __initialize_grid(self):
         """
         Create a utility and policy grid. Returns True if walls and end_states are valid parameters.
@@ -28,6 +31,7 @@ class GridComponent:
             Returns:
                 is_valid: (bool): Boolean of whether or not parameters are valid.
         """
+        self.iteration = 0
 
         self.utility = [
             [0 for c in range(self.parameters.col)] for r in range(self.parameters.row)
@@ -38,6 +42,90 @@ class GridComponent:
         ]
 
         return self.__initialize_walls() and self.__initialize_end_states()
+
+    def get_transition_model(self, state, action):
+        row = state[0]
+        col = state[1]
+
+        # there is no transition model for walls or end states
+        if (
+            not [row, col] in self.parameters.walls
+            and not [row, col] in self.parameters.end_states
+        ):
+
+            s = [row, col]
+            a = action
+
+            up_prob = 0
+            right_prob = 0
+            down_prob = 0
+            left_prob = 0
+
+            # UP
+            if action == [-1, 0]:
+                up_prob = self.parameters.cw_0
+                right_prob = self.parameters.cw_90
+                down_prob = self.parameters.cw_180
+                left_prob = self.parameters.cw_270
+
+            # RIGHT
+            elif action == [0, 1]:
+                up_prob = self.parameters.cw_270
+                right_prob = self.parameters.cw_0
+                down_prob = self.parameters.cw_90
+                left_prob = self.parameters.cw_180
+
+            # DOWN
+            elif action == [1, 0]:
+                up_prob = self.parameters.cw_180
+                right_prob = self.parameters.cw_270
+                down_prob = self.parameters.cw_0
+                left_prob = self.parameters.cw_90
+
+            # LEFT
+            elif action == [0, -1]:
+                up_prob = self.parameters.cw_90
+                right_prob = self.parameters.cw_180
+                down_prob = self.parameters.cw_270
+                left_prob = self.parameters.cw_0
+
+            # cannot end up in wall
+            up_r = max(row - 1, 0)
+            up_c = col
+
+            if [up_r, up_c] in self.parameters.walls:
+                up_r = row
+                up_c = col
+
+            right_r = row
+            right_c = min(col + 1, self.parameters.col - 1)
+
+            if [right_r, right_c] in self.parameters.walls:
+                right_r = row
+                right_c = col
+
+            down_r = min(row + 1, self.parameters.row - 1)
+            down_c = col
+
+            if [down_r, down_c] in self.parameters.walls:
+                down_r = row
+                down_c = col
+
+            left_r = row
+            left_c = max(col - 1, 0)
+
+            if [left_r, left_c] in self.parameters.walls:
+                left_r = row
+                left_c = col
+
+            transition_model = [
+                [up_r, up_c, up_prob],
+                [right_r, right_c, right_prob],
+                [down_r, down_c, down_prob],
+                [left_r, left_c, left_prob],
+            ]
+
+            return transition_model
 
     def __initialize_walls(self):
         """
@@ -71,6 +159,7 @@ class GridComponent:
                 is_valid: (bool): Boolean of whether or not end states are within the grid world parameters
         """
 
+        i = 0
         for end_state in self.parameters.end_states:
             if (
                 end_state[0] < self.parameters.row
@@ -83,8 +172,13 @@ class GridComponent:
                     )
                     return False
 
-                self.utility[end_state[0]][end_state[1]] = "[" + str(end_state[2]) + "]"
+                self.utility[end_state[0]][end_state[1]] = (
+                    "[" + str(self.parameters.end_state_rewards[i]) + "]"
+                )
+
                 self.policy[end_state[0]][end_state[1]] = "E"
+
+                i += 1
             else:
                 print("Given end state is out of range of grid world", end_state)
                 return False
