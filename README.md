@@ -31,7 +31,7 @@ When users run the application, a main menu will open up with three options:
 - 3. Quit.
     - Exit the application.
 ### Configuring Grid World
-Here is an example configuration file that would be ingested by the application:
+Here is an example  **parameters.json** configuration file that would be ingested by the application:
 ```
 {
   "Rows": 3,
