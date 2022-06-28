@@ -20,6 +20,14 @@ class GridComponent:
             exit(-1)
 
     def reset_grid(self):
+        """
+        Reset utility and policy grid to their initial states.
+
+            Parameters:
+
+            Returns:
+
+        """
         self.__initialize_grid()
 
     def __initialize_grid(self):
@@ -44,6 +52,17 @@ class GridComponent:
         return self.__initialize_walls() and self.__initialize_end_states()
 
     def get_transition_model(self, state, action):
+        """
+        Returns transition model for a given state and action.
+
+            Parameters:
+                state: (list): row and column of state.
+                action: (list): delta row and delta column for movement on grid.
+
+            Returns:
+                is_valid: (bool): Boolean of whether or not parameters are valid.
+        """
+
         row = state[0]
         col = state[1]
 
@@ -86,7 +105,7 @@ class GridComponent:
                 down_prob = self.parameters.cw_270
                 left_prob = self.parameters.cw_0
 
-            # cannot end up in wall
+            # don't allow movement into a wall or grid edge.
             up_r = max(row - 1, 0)
             up_c = col
 
@@ -94,6 +113,7 @@ class GridComponent:
                 up_r = row
                 up_c = col
 
+            # don't allow movement into a wall or grid edge.
             right_r = row
             right_c = min(col + 1, self.parameters.col - 1)
 
@@ -101,6 +121,7 @@ class GridComponent:
                 right_r = row
                 right_c = col
 
+            # don't allow movement into a wall or grid edge.
             down_r = min(row + 1, self.parameters.row - 1)
             down_c = col
 
@@ -108,6 +129,7 @@ class GridComponent:
                 down_r = row
                 down_c = col
 
+            # don't allow movement into a wall or grid edge.
             left_r = row
             left_c = max(col - 1, 0)
 

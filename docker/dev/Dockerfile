@@ -30,7 +30,8 @@ RUN sudo apt-get install -y black
 RUN sudo apt-get install -y python3-pip 
     
 
-COPY requirements.txt ./
+COPY requirements.txt requirements.txt
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -

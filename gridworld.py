@@ -100,31 +100,38 @@ class GridWorld:
 
                     state = [row, col]
 
+                    # Ignore walls and end states
                     if (
                         not state in self.grid.parameters.walls
                         and not state in self.grid.parameters.end_states
                     ):
 
-                        max_sum = float(-100000000)
+                        max_sum = float('-inf')
 
+                        ## for each state, choose an action with the greatest utility
                         for action in actions:
                             sum = 0
 
                             transitions = self.grid.get_transition_model(state, action)
 
+                            # iterate over all posible transitions for current action
+                            # Note: transition is in form [row,column,probability]
                             for transition in transitions:
                                 r = transition[0]
                                 c = transition[1]
 
                                 s_prime_utility = self.grid.utility[r][c]
 
+                                # strip characters if transition is an end state.
+                                # Note: end states are in form '[val]'
                                 if isinstance(s_prime_utility, str):
                                     s_prime_utility = s_prime_utility.strip("[]")
 
+                                
                                 sum += transition[2] * float(s_prime_utility)
 
+                            # if sum is larger than max sum, update policy grid
                             if sum > max_sum:
-
                                 # UP
                                 if action == [-1,0]:
                                     self.grid.policy[row][col] = "^"
@@ -140,12 +147,12 @@ class GridWorld:
 
                                 max_sum = sum
 
+                        # update utility of current state using Bellman's Optimal Equations
                         self.grid.utility[row][col] = round(self.grid.parameters.reward + (
                             self.grid.parameters.lamb * max_sum
                         ),3)
 
             self.grid.iteration += 1
-
 
 if __name__ == "__main__":
     world = GridWorld()

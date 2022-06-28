@@ -1,11 +1,21 @@
 version: '3'
 
 services:
-    pomdp:
-        image: pomdp/latest
-        build: ./
+    dev:
+        build: 
+          context: . #build will happen in same directory as docker-compose.yml
+          dockerfile: ./docker/dev/Dockerfile
+        image: feztheimmigrant/pomdp_brown_dev
         stdin_open: true #docker run -i
         tty: true # docker run -t
         volumes:
             - ./:/home/developer/dev
-        
+    prod:
+        build: 
+          context: . #build will happen in same directory as docker-compose.yml
+          dockerfile: ./docker/prod/Dockerfile
+        image: feztheimmigrant/pomdp_brown
+        stdin_open: true #docker run -i
+        tty: true # docker run -t
+        volumes:
+            - ./parameters.json:/app/parameters.json

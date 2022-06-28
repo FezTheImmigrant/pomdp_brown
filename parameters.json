@@ -1,7 +1,7 @@
 {
   "Rows": 3,
   "Columns": 4,
-  "Reward": -2,
+  "Reward": 2,
   "Lambda": 1.0,
 
   "probabilities": {
