@@ -18,7 +18,7 @@ Before running, you need to have the following dependencies installed:
 - numpy
 - tabulate
 
-Once the dependencies are installed you can run the application with the following command
+Once the dependencies are installed you can run the application with the following command:
 ```
 python3 gridworld.py
 ```
